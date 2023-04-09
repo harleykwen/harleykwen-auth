@@ -1,14 +1,24 @@
 import express, { 
+    Express, 
     Request, 
     Response, 
-    Application, 
+    NextFunction,
 } from 'express'
 import dotenv from 'dotenv'
 
 dotenv.config()
  
-const app: Application = express()
+const app: Express = express()
 const port: number = Number(process.env.port) || 8000
+
+app.use((req: Request, res: Response, next: NextFunction) => { // Handle error CORS policy
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Method', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    next()
+})
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
  
 app.get('/', (req: Request, res: Response) => {
     return res?.status(200)?.json({
