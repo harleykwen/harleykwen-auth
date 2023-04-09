@@ -9,7 +9,7 @@ import dotenv from 'dotenv'
 dotenv.config()
  
 const app: Express = express()
-const port = process.env.port
+const port = process.env.PORT
 
 app.use((req: Request, res: Response, next: NextFunction) => { // Handle error CORS policy
     res.setHeader('Access-Control-Allow-Origin', '*')
